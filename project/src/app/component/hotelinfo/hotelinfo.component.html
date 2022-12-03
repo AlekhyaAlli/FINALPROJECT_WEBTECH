@@ -1,0 +1,208 @@
+<html>
+    
+  
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+  
+<body class="w3-light-pink">
+
+    <h4><i>WELCOME TO UMD ROYAL ROOMS</i>
+    </h4>
+
+ <div class="w3-row-padding w3-padding-16" bgcolor="blue">
+
+ <div class="w3-third w3-margin-bottom">
+   <img src="assets/555.jpg" alt="Norway" style="width:100%">
+ <div class="w3-container w3-white">
+ <h3>Deluxe Room</h3>
+ <h6 class="w3-opacity">From $85</h6>
+ <p >{{de}}No&nbsp;&nbsp;RoomsAvialable</p>
+ <p>Single bed</p>
+ <p>15m<sup>2</sup></p>
+ <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
+ <button class="w3-button w3-block w3-black w3-margin-bottom" data-toggle="modal" data-target="#myModal">Choose Room</button>
+ </div>
+ </div>
+ <div class="w3-third w3-margin-bottom">
+ <img src="assets/666.jpg" alt="Norway" style="width:100%">
+ 
+ <div class="w3-container w3-white">
+ <h3>Executive Room</h3>
+ <h6 class="w3-opacity">From $150</h6>
+<p> {{ex}}No&nbsp;&nbsp;RoomsAvialable</p>
+ <p>Queen-size bed</p>
+ <p>25m<sup>2</sup></p>
+ <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i></p>
+ <button class="w3-button w3-block w3-black w3-margin-bottom" data-toggle="modal" data-target="#myModal">Choose Room</button>
+ </div>
+ </div>
+ <div class="w3-third w3-margin-bottom">
+ <img src="assets/777.jpg" alt="Norway" style="width:100%">
+ <div class="w3-container w3-white">
+ <h3>Premium Room</h3>
+ <h6 class="w3-opacity">From $300</h6>
+ <p> {{pr}}No&nbsp;&nbsp;RoomsAvialable</p>
+ <p>King-size bed</p>
+ <p>40m<sup>2</sup></p>
+ <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i> <i class="fa fa-glass"></i> <i class="fa fa-cutlery"></i></p>
+ 
+ 
+ <button class="w3-button w3-block w3-black w3-margin-bottom" data-toggle="modal" data-target="#myModal">Choose Room</button>
+ <div class="modal fade formcenter"  id="myModal" role="form">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button  type="button" class="close" data-dismiss="modal">×</button>
+          <h4><span class="glyphicon glyphicon-lock"></span>BOOK YOUR ROOM</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" #frm="ngForm" ngNativeValidate >
+            <div class="form-group">
+              
+            <label for ="Id" >&nbsp;&nbsp;<span class="fa fa-room"></span>Id:</label>
+            <input required type="text" class="form-control" ngModel name="_id" placeholder="Enter theReferenceID" required pattern='[0-9]*' #ID='ngModel'>
+          </div>
+          <div *ngIf='ID?.touched'>
+            <div *ngIf='ID.errors?.required' class="alert alert-danger">
+            Note: ReferenceID must be filled
+            </div>
+            <div *ngIf='ID.errors?.pattern' class="alert alert-danger">
+                Note:   Inavlid ReferenceID
+                </div>
+          
+            </div>
+          <div>  
+            <label for="psw"><span class="fa fa-room"></span>Room Type</label>
+            
+              
+              <select required  ngModel name='Roomtype' class="form-control" size=1 #RT="ngModel">
+                <option value='Deluxe'>Deluxe</option>
+                <option value='Premium'>Premium</option>
+                <option value='Executive'>Executive</option>
+            
+              </select>
+
+         </div>
+         <div *ngIf='RT?.touched'>
+          <div *ngIf='RT.errors?.required' class="alert alert-danger">
+          Note: RoomType must be Selected
+          </div>
+          </div>
+        
+            <div class="form-group" >
+
+                <label for="checkin"><span class="glyphicon glyphicon-calendar"></span>checkindate</label>
+                <input type="date" class="form-control" required ngModel name="Sdate"#CDate="ngModel" placeholder="Enter checkindate">
+              </div>
+              <div *ngIf="CDate?.touched">
+                <div *ngIf='CDate.errors?.required' class="alert alert-danger">
+                  Note:Checkin Date Must be Selected
+                </div>
+                </div>
+            <div class="form-group">
+              <label for="checkout"><span class="glyphicon glyphicon-calendar"></span>checkoutdate</label>
+              <input type="date" class="form-control" #CDate1='ngModel' required ngModel name="Edate"  placeholder="Enter checkoutdate">
+            </div>
+            <div *ngIf="CDate1?.touched">
+                <div *ngIf='CDate1.errors?.required' class="alert alert-danger">
+                  Note:CheckOut Date Must be Selected
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="adults"><span class="glyphicon glyphicon-user"></span>Adults</label>
+                <input type="number" class="form-control" required ngModel name="Noa" #ad='ngModel'min='1' max='2' placeholder="Enter no of adults">
+              </div>
+              <div *ngIf="ad?.touched">
+                  <div *ngIf='ad.errors?.required' class="alert alert-danger">
+                    Note:Enter No of Adults
+                  </div>
+                  <div *ngIf='ad.errors?.max && ad.errors?.min' class="alert alert-danger">
+                    Note:Only 2 Adults are permitted Per Room
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="child"><span class="glyphicon glyphicon-user"></span>childern</label>
+                  <input type="number" class="form-control" required #c='ngModel' ngModel name="Noc" min='0' max='4'placeholder="Enter no of childern">
+                </div>
+                <div *ngIf="c?.touched">
+                    <div *ngIf='c.errors?.required' class="alert alert-danger">
+                      Note:Enter No of Childs
+                    </div>
+                    <div *ngIf='c.errors?.max && ad.errors?.min' class="alert alert-danger">
+                      Note:Only 4 Childs are permitted Per Room
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="Uname"><span class="glyphicon glyphicon-user"></span>Name</label>
+                  <input type="text" class="form-control" pattern='[a-zA-Z][a-zA-Z]+' required ngModel name="Uname" #UName='ngModel'autocomplete="username" placeholder="Enter Name">
+                </div>
+                <div *ngIf='UName?.touched'>
+                  <div *ngIf='UName.errors?.required'>
+                  Note: User Name must be filled
+                </div>
+                <div *ngIf='UName.errors?.pattern'>
+                  Note: Invalid User Name
+                </div>
+                </div>
+                <div class="form-group">
+                  <label for="Email"><span class="glyphicon glyphicon-mail"></span>Email-Id</label>
+                  <input type="text" class="form-control"   ngModel name="Email" autocomplete="email" placeholder="Enter email-id"  required pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$' #emailAddress='ngModel' >
+                </div>
+                <div *ngIf='emailAddress?.touched'>
+                  <div *ngIf='emailAddress.errors?.required'>
+                  Note: E-mail must be filled
+                  </div>
+                  <div *ngIf='emailAddress.errors?.pattern'>
+                    Note: Invalid E-mail Address
+                    </div>
+                </div>
+                
+                <button class="w3-button w3-block w3-black w3-margin-bottom" type="submit" [disabled]='frm.invalid' (click)="AddData(frm)">Add Room</button>
+                <button class="w3-button w3-block w3-black w3-margin-bottom" data-toggle="modal" data-target="#myModals">Check Promocode </button>
+
+                <div class="modal fade formcenter"  id="myModals" role="form">
+                  <div class="modal-dialog modal-sm">
+                  
+                    <!-- Modal content-->
+                    <div class="modal-content modal-sm">
+                      <div class="modal-header">
+                        <button  type="button" class="close" data-dismiss="modal">×</button>
+                        <h4><span class="glyphicon glyphicon-lock"></span>CHECK PROMOCODE</h4>
+                      </div>
+                      <div class="modal-body">
+                          <form role="form">
+                            <div class="form-group">
+                              <label for="promo">Enter Promocode</label>
+                              <input type="text" id="promocode">
+                              </div>
+                              <br>
+                            
+                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Apply</button>
+ 
+                      
+                      
+                      </form>
+                      </div>
+                      </div>
+                      </div>
+                      </div>
+                      </form>
+                      </div>
+                      </div>
+                      </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </body>
+                    </html>
