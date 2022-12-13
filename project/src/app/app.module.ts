@@ -17,19 +17,30 @@ import { HomeComponent } from './component/home/home.component';
 import  {RouterModule,Routes} from '@angular/router';
 import { TestComponent } from './test/test.component';
 //import { HttpModule } from '@angular/http';
-import{HttpHeaders,HttpClient, HttpClientModule} from '@angular/common/http'
+import{HttpHeaders,HttpClient, HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './component/login/login.component';
+import { RegisterComponent } from './component/register/register.component';
+import { NavComponent } from './component/nav/nav.component';
+import{ AuthserviceService } from './authservice.service';
+import {ValidateEqualModule} from 'ng-validate-equal';
+import { AuthGuardService } from './authguard.service';
+
+
 const rou :Routes=[
   {
     path:'home',
-    component:HomeComponent
+    component:HomeComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'gallery',
-    component:GalleryComponent
+    component:GalleryComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'hotelinfo',
-    component:HotelinfoComponent
+    component:HotelinfoComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'cancelbooking',
@@ -37,12 +48,24 @@ const rou :Routes=[
   },
   {
     path:'review',
-    component:ReviewComponent
+    component:ReviewComponent,
+    canActivate: [AuthGuardService]
   },
-  
+  {
+    path:'login',
+    component:LoginComponent,
+  },
+  {
+    path:'register',
+    component:RegisterComponent
+  },
+  {
+    path:'nav',
+    component:NavComponent
+  },
   {
     path:'',
-    redirectTo:'home',
+    redirectTo:'login',
     pathMatch:'full'
   }
 
@@ -59,19 +82,23 @@ const rou :Routes=[
     HotelinfoComponent,
     GalleryComponent,
     HomeComponent,
-    TestComponent],
+    TestComponent,
+    LoginComponent,
+    RegisterComponent,
+    NavComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ValidateEqualModule,
    // HttpModule,
     RouterModule.forRoot(rou)
 
   
   
   ],
-  providers: [DataService],
+  providers: [DataService,AuthserviceService,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

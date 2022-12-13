@@ -1,5 +1,5 @@
 import { List2 } from '../../list2';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http'
@@ -20,9 +20,8 @@ private headers= new HttpHeaders().set("Content-Type","application/json")
 
 //private Data:DataService,
   constructor( private http:HttpClient,private router:Router,private dase:DataService) {
-   
-   
    }
+ 
 addDate(form)
 {
     console.log(form.value.Adate)
@@ -60,7 +59,6 @@ addDate(form)
   alert("Sorry No rooms are available please visit Us again!!!")
   }
   ngOnInit() {
-
    }
 
 }

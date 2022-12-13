@@ -7,12 +7,16 @@ var cors=require('cors');
 var app=ex();
 
 const route=require('./route/routes');
-//connecting to data base 
+const { db } = require('./model/hoteldata');
+const mongoose = require('mongoose');
+//connecting to data basse
 
-//mon.connect('mongodb://RamayyaRR:RamayyaRamya@ds155695.mlab.com:55695/hoteldata')
-
-
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('useUnifiedTopology', true);
 mon.connect('mongodb://localhost:27017/hoteldata')
+var database = mongoose.connection;
 
 //checking Connection
 
@@ -45,6 +49,35 @@ app.use('/api',route);
 app.get('/',(req,res)=>{
     res.send("Data is Displaying....");
 })
+// app.get('/login',(req,res)=>{
+//     res.render("login");
+// })
+// app.get('/register',(req,res)=>{
+//     res.render("register");
+// })
+
+// app.post("/register", async(req,res)=> {
+
+// var fname = req.body.fname;
+// var lname = req.body.lname;
+// var email= req.body.email;
+// var password = req.body.password;
+// var data = {
+//     "fname" : fname,
+//     "lname": lname,
+//     "email": email,
+//     "password":password
+// }
+// database.collection('users').insertOne(data,(err,collection) =>{
+// if(err){
+//     throw err;
+// }
+// console.log("record inserted");
+// })
+// console.log("entered login");
+// return res.redirect('signup_success.html')
+// })
+
 app.listen(PORT,()=>{
 console.log("Node server is Running at :"+PORT);
 })

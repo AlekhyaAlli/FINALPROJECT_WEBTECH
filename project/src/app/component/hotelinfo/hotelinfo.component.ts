@@ -1,4 +1,4 @@
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from './../../data.service';
 import { Component, OnInit } from '@angular/core';
@@ -17,6 +17,7 @@ pr=0;
 ex=0;
 Adate;
 Ddate;
+closeModal= false;
 //id;
 private headers= new HttpHeaders().set("Content-Type","application/json")
 
@@ -30,18 +31,22 @@ AddData(frm)
        console.log(data)
        this.d1=data
        console.log(this.d1)
-       if(this.d1!=0)
+       if(this.d1!=0){
        alert("please Enter the data to Continue") 
-       
+       }
         else
-         this.router.navigate(['home'])
+         frm.reset();
+         this.closeModal = true;
+         this.router.navigate(['/hotelinfo']);
          alert("Room Booked Successfully Thankyou!!!") 
-       
+        
       
  }
  
+ 
 
  )
+ this.closeModal = false;
 }
 /* makeid() {
   var text = "";
@@ -62,6 +67,7 @@ AddData(frm)
     console.log( this.Adate=this.dase2.getaDate());
      console.log(this.Ddate=this.dase2.getdDate());
   //   this.id=this.makeid()
+  this.closeModal = false;
     
       
      }

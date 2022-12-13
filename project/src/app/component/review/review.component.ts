@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-review',
@@ -10,6 +11,13 @@ export class ReviewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+  }
+  onSubmit(f: NgForm){
+    alert("Thankyou!!!....");
+    f.reset();
+
+    
   }
 
 }

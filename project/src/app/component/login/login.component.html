@@ -1,0 +1,68 @@
+
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
+</style>
+<nav *ngIf = "!isUserLoggedIn" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">UMD Royal Rooms</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link " style="font-size: large" routerLink="/login">LOGIN<span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link " style="font-size: large" routerLink="/register">REGISTER</a>
+    </div>
+  </div>
+</nav>
+<body class="w3-light-pink">
+
+    <h4><i>WELCOME TO UMD ROYAL ROOMS</i>
+    </h4>
+         <div class="modal-body">
+          <form role="form" #frm="ngForm" ngNativeValidate >
+            <div class="form-group">
+              <label for="Email"><span class="glyphicon glyphicon-mail"></span>Email-Id</label>
+              <input type="text" class="form-control"   ngModel name="Email" autocomplete="email" placeholder="Enter email-id"  required pattern='^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$' #emailAddress='ngModel' >
+            </div>
+            <div *ngIf='emailAddress?.touched'>
+              <div *ngIf='emailAddress.errors?.required'>
+              Note: E-mail must be filled
+              </div>
+              <div *ngIf='emailAddress.errors?.pattern'>
+                Note: Invalid E-mail Address
+                </div>
+            </div>
+
+                <div class="form-group">
+                  <label for="pwd"><span class="glyphicon glyphicon-user"></span>Password</label>
+                  <input type="password" class="form-control" pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' required ngModel name="pwd" #pwd='ngModel'autocomplete="pwd" placeholder="Password" >
+                </div>
+                <div *ngIf='pwd?.touched'>
+                  <div *ngIf='pwd.errors?.required'>
+                  Note: password Name must be filled
+                </div>
+                <div *ngIf='pwd.errors?.pattern'>
+                  Note:  Inavlid password
+                </div>
+                </div>
+               
+                
+                <button class="w3-button w3-block w3-black w3-margin-bottom" type="submit" [disabled]='frm.invalid' (click)="login(frm)">Login</button>
+                      </form>
+                      </div>
+                    </body>
+                    </html>
+                   

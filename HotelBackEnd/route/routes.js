@@ -1,12 +1,59 @@
 var ex=require('express');
 var router=ex.Router();
-const Room=require('../model/hoteldata'); 
-//const date = require('date-and-time');
+const Room=require('../model/hoteldata');
+const loginDetails = require('../model/userinfo');
+const registerDetails = require('../model/register');
 const moment=require('moment');
-//const Nor=require('../model/hoteldata'); 
-const nodemailer = require('nodemailer');
+const { json } = require('body-parser');
+
 
 //retriving data from data base
+
+router.post('/login',async (req,res,next)=>{
+    try{
+    console.log("entered login");
+    var useremail = req.body.Email;
+    var password = req.body.pwd;
+    const user = await registerDetails.findOne({Email:useremail});
+    console.log(user.password);
+
+    if(user.password === password){
+        console.log("email");
+        res.json({status:'ok'})
+    }
+    else{
+        res.send({status:"invalidpwd"})
+    }
+    } catch(error){
+        res.send({status:"invaliemail"})
+    }
+});
+
+router.post('/register',(req,res,next)=>{
+    console.log("entered register");
+    var firstName = req.body.fname;
+    var lastName = req.body.lname;
+    var email = req.body.Email;
+    var password = req.body.pwd;
+    let NewData = new registerDetails({
+        firstName:req.body.fname,
+        LastName : req.body.lname,
+        Email:req.body.Email,
+        password : req.body.pwd
+        
+    })
+    
+   NewData.save((err,data)=>{
+       
+       if(err)
+       res.json(err)
+       else{
+        res.json({status:'ok'});
+       console.log("Data inserted")   
+    }
+})
+
+})
 
 router.get('/get_data',(req,res,next)=>{
    Room.find(function(err,data){
@@ -166,7 +213,7 @@ router.post('/add_data',(req,res,next)=>{
     }
    })
    
-})/*
+})
 //update status_data
 router.post('/update_statusdata',(req,res,next)=>{
     id2=req.body.id;//form data
@@ -200,88 +247,88 @@ router.put('/update_data/:id',(req,res,next)=>{
        else
        res.json(result)
    })
-})*/
+})
 
-// Deleting data from the database
-   router.delete('/delete_data',(req,res,next)=>{
-    res.send("Data is deleted from the database");
- })
+// // Deleting data from the database
+//    router.delete('/delete_data',(req,res,next)=>{
+//     res.send("Data is deleted from the database");
+//  })
 
     // create reusable transporter object using the default SMTP transport
-    var transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: 'miraclerr4906@gmail.com', // generated ethereal user
-            pass: 'Ramya@Ramayya4906' // generated ethereal password
-        }
-    });
+    // var transporter = nodemailer.createTransport({
+    //     host: 'smtp.gmail.com',
+    //     port: 587,
+    //     secure: false, // true for 465, false for other ports
+    //     auth: {
+    //         user: 'miraclerr4906@gmail.com', // generated ethereal user
+    //         pass: 'Ramya@Ramayya4906' // generated ethereal password
+    //     }
+    // });
 
 	
-	var mailOptions = {
-        from: 'Miracle Royal Rooms ', // sender address
-        to: 'miraclerr4906@gmail.com, ', // list of receivers
-        subject: 'Miracle Royal Rooms', // Subject line
-        text: ' Room Cancelled Successfully', // plain text body
-        html: '<b>Your Room Cancelled Successfully!!!</b>' // html body
-    };
+	// var mailOptions = {
+    //     from: 'Miracle Royal Rooms ', // sender address
+    //     to: 'miraclerr4906@gmail.com, ', // list of receivers
+    //     subject: 'Miracle Royal Rooms', // Subject line
+    //     text: ' Room Cancelled Successfully', // plain text body
+    //     html: '<b>Your Room Cancelled Successfully!!!</b>' // html body
+    // };
 	
 
-  router.post('/mail_Status',(req,res,next)=>{
-    id2=req.body.id;//form data
-    Email1=req.body.Email
-    console.log(req.body.Email)
-    Room.findOneAndUpdate({$and:[{'_id':id2} ,{'Email':Email1}] },{Status:"InActive"},function(err,result){
+//   router.post('/mail_Status',(req,res,next)=>{
+//     id2=req.body.id;//form data
+//     Email1=req.body.Email
+//     console.log(req.body.Email)
+//     Room.findOneAndUpdate({$and:[{'_id':id2} ,{'Email':Email1}] },{Status:"InActive"},function(err,result){
    
      
-        if(err){
-            res.status(500).json({msg:err})
-        }
-        else
-        {
-	      var mail = Email1;
-		  console.log(mail);
-			var mailOptions1 = {
-        from: 'Miracle Royal Rooms', // sender address
-        to: mail , // list of receivers
-        subject: 'Miracle Royal Rooms', // Subject line
-        text:'Id:'+id2,
-        html:'Dear Customer, <center><br>Your Room Has Been Successfully cancelled Thankyou For using our service,Please Visit agian..</center>' // plain text body
-        // html body
-    };
+//         if(err){
+//             res.status(500).json({msg:err})
+//         }
+//         else
+//         {
+// 	      var mail = Email1;
+// 		  console.log(mail);
+// 			var mailOptions1 = {
+//         from: 'Miracle Royal Rooms', // sender address
+//         to: mail , // list of receivers
+//         subject: 'Miracle Royal Rooms', // Subject line
+//         text:'Id:'+id2,
+//         html:'Dear Customer, <center><br>Your Room Has Been Successfully cancelled Thankyou For using our service,Please Visit agian..</center>' // plain text body
+//         // html body
+//     };
 			
-	transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        // Preview only available when sending through an Ethereal account
-       // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+// 	transporter.sendMail(mailOptions, (error, info) => {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         console.log('Message sent: %s', info.messageId);
+//         // Preview only available when sending through an Ethereal account
+//        // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
 
-    });
+//     });
 
 
-     transporter.sendMail(mailOptions1, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: %s', info.messageId);
-        // Preview only available when sending through an Ethereal account
-       // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+//      transporter.sendMail(mailOptions1, (error, info) => {
+//         if (error) {
+//             return console.log(error);
+//         }
+//         console.log('Message sent: %s', info.messageId);
+//         // Preview only available when sending through an Ethereal account
+//        // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
 
 
-    });
+//     });
 
 
-            res.status(200).json({msg:result})
-        }
+//             res.status(200).json({msg:result})
+//         }
 
-    })
+    //})
 
    
-  });
+ // });
   
   
   

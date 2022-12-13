@@ -15,15 +15,14 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link " routerLink="/home">HOME <span class="sr-only">(current)</span></a>
       <a class="nav-item nav-link " routerLink="/hotelinfo">ROOMS INFO</a>
-      
-      
       <a class="nav-item nav-link " routerLink='/gallery'>GALLERY</a><Li></Li>
-      <a class="nav-item nav-link " routerLink='/cancelbooking'>CANCEL BOOKING</a>
       <a class="nav-item nav-link " routerLink='/review' >REVIEW</a>
+      <div>
+      <a class="nav-item nav-link" *ngIf="!loginStatus" (click)="logout()">LOGOUT</a>
+      </div>
     </div>
   </div>
-  
-  
+ 
    
         
        
