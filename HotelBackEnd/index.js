@@ -15,7 +15,7 @@ const mongoose = require('mongoose');
 // mongoose.set('useFindAndModify', false);
 // mongoose.set('useCreateIndex', true);
 // mongoose.set('useUnifiedTopology', true);
-mon.connect('mongodb://localhost:27017/hoteldata')
+mon.connect('mongodb://127.0.0.1:27017/hoteldata')
 var database = mongoose.connection;
 
 //checking Connection

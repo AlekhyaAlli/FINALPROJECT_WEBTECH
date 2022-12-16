@@ -25,7 +25,7 @@ private headers= new HttpHeaders().set("Content-Type","application/json")
 addDate(form)
 {
     console.log(form.value.Adate)
-      this.http.post("http://localhost:4906/api/get_Edate_data",form.value)//,{headers:this.headers})
+      this.http.post("/api/get_Edate_data",form.value)//,{headers:this.headers})
        .subscribe( (data)  => {
         this.d1=data;  
         this.dase.setter(this.d1);
@@ -39,7 +39,7 @@ addDate(form)
        }   
      
        ) 
-       this.http.get("http://localhost:4906/api/get_Noofrooms_data").subscribe((data1)=>
+       this.http.get("/api/get_Noofrooms_data").subscribe((data1)=>
       {
         this.d2=data1;
         this.dase.setter2(this.d2)
